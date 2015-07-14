@@ -20,17 +20,17 @@
 	
 	$terms = $scraper->scrapeTerms();
 	$termsParsed = $parser->parseTerms($terms);
-	//$dbmanager->storeTerms($termsParsed);	
+	$dbmanager->storeTerms($termsParsed);	
 	
 	foreach($termsParsed as $term)
 	{
 		$college = $scraper->scrapeSubjects($term['termlink']);
 		$collegeObject = $parser->parseSubjects($college);
-		//$dbmanager->storeColleges($collegeObject);
+		$dbmanager->storeColleges($collegeObject);
 		
 		foreach($collegeObject as $college)
 		{
-			//$dbmanager->storeSubjects($college);
+			$dbmanager->storeSubjects($college);
 		}
 	}
 	
@@ -39,34 +39,15 @@
 	$term['termlink'] = "https://duapp3.drexel.edu/webtms_du/Colleges.asp?Term=201125&univ=DREX";
 	$term['termcode'] = '201125';
 	
-	/*foreach($subjectLinks as $subjectLink)
+	foreach($subjectLinks as $subjectLink)
 	{		
 		$courses = $scraper->scrapeCourses($subjectLink,$term);	
 		$coursesparsed = $parser->parseCourses($courses);
 		$dbmanager->storeCourses($coursesparsed, $term);		
-	}*/
-	
-	$query = '';
-	for ($i=0;$i<5;$i++)
-	{
-		$courses = $scraper->scrapeCourses($subjectLinks[$i],$term);	
-		$coursesparsed = $parser->parseCourses($courses);
-		$query .= $dbmanager->storeCourses($coursesparsed, $term);
 	}
 	
-	$query = substr($query,0,-1);
-	echo $query;
-	
-
 	$mtime = microtime(); 
 	$mtime = explode(" ",$mtime); 
 	$mtime = $mtime[1] + $mtime[0]; 
 	$endtime = $mtime; 
 	$totaltime = ($endtime - $starttime); 
-	//echo $totaltime." sec";
-	
-	
-
-	
-
-?>

@@ -133,9 +133,8 @@
 									, mysql_real_escape_string($course['sec'])
 									, (int)$courseid
 									, mysql_real_escape_string($term['termcode']));
-				//mysql_query($query2) or die(mysql_error());
+				mysql_query($query2) or die(mysql_error());
 			}
-			return $query2;
 			
 			mysql_close();
 		}
